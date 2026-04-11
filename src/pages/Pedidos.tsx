@@ -14,6 +14,7 @@ interface Pedido {
   estado: string;
 }
 
+// Tipos para la respuesta de la API, incluyendo paginación
 interface ApiSuccessResponse<T> {
     success: boolean;
     message: string;
@@ -24,6 +25,7 @@ interface PaginatedData<T> {
     data: T[];
 }
 
+// Componente principal que muestra la lista de pedidos
 export default function Pedidos() {
     // Estado para almacenar la lista de pedidos, carga y error
     const [pedidos, setPedidos] = useState<Pedido[]>([]);
@@ -44,9 +46,11 @@ export default function Pedidos() {
             });
     }, []);
 
+    // Renderizado condicional para mostrar estado de carga, error o la tabla de pedidos
     if (loading) return <div className="p-6">Cargando pedidos...</div>;
     if (error) return <div className="p-6 text-red-600">{error}</div>;
     
+    // Renderizamos una tabla con los pedidos obtenidos de la API
     return (
         <div className = "p-6">
             <h1 className = "text-2xl font-bold mb-4">Lista de Pedidos</h1>
@@ -65,6 +69,7 @@ export default function Pedidos() {
                 </thead>
 
                 <tbody>
+                    {/* Iteramos sobre los pedidos para mostrar cada uno en una fila de la tabla */}
                     {pedidos.map((pedido) => (
                         <tr key={pedido.id} className = "hover:bg-gray-50">
                             <td className = "border border-gray-200 px-4 py-2">{pedido.id}</td>

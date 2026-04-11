@@ -1,6 +1,7 @@
 import { Component, type ReactNode } from "react";
 import Pedidos from "./pages/Pedidos";
 
+// Componente para manejar errores en la aplicación y mostrar un mensaje amigable
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: string | null }> {
   state = { error: null };
   static getDerivedStateFromError(e: Error) {
@@ -14,6 +15,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: string |
   }
 }
 
+// Componente principal de la aplicación que muestra el dashboard de pedidos
 export default function App() {
   return (
     <div className="p-10">
