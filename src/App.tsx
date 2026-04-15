@@ -1,5 +1,6 @@
 import { Component, type ReactNode } from "react";
-import Pedidos from "./pages/Pedidos";
+//import Pedidos from "./pages/Pedidos";
+import Login from "./pages/Login";
 
 // Componente para manejar errores en la aplicación y mostrar un mensaje amigable
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: string | null }> {
@@ -23,7 +24,7 @@ export default function App() {
         Dashboard de Pedidos
       </h1>
       <ErrorBoundary>
-        <Pedidos />
+        <Login />
       </ErrorBoundary>
     </div>
   );
