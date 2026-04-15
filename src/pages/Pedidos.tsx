@@ -3,17 +3,9 @@
 // Importamos los hooks de React y el cliente de Axios configurado para la API 
 import { useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
+import PedidosTable, { type Pedido } from "../components/PedidosTable";
 
 // Datos tipados con Typescript para representar un pedido
-interface Pedido {
-  id: number;
-  cliente: string;
-  producto: string;
-  cantidad: number;
-  precio: number;
-  estado: string;
-}
-
 // Tipos para la respuesta de la API, incluyendo paginación
 interface ApiSuccessResponse<T> {
     success: boolean;
@@ -54,34 +46,7 @@ export default function Pedidos() {
     return (
         <div className = "p-6">
             <h1 className = "text-2xl font-bold mb-4">Lista de Pedidos</h1>
-
-            {/* Tabla para mostrar los pedidos */}
-            <table className = "w-full border border-gray-200">
-                <thead>
-                    <tr className = "bg-gray-100">
-                        <th className = "border border-gray-200 px-4 py-2">ID</th>
-                        <th className = "border border-gray-200 px-4 py-2">Cliente</th>
-                        <th className = "border border-gray-200 px-4 py-2">Producto</th>
-                        <th className = "border border-gray-200 px-4 py-2">Cantidad</th>
-                        <th className = "border border-gray-200 px-4 py-2">Precio</th>
-                        <th className = "border border-gray-200 px-4 py-2">Estado</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {/* Iteramos sobre los pedidos para mostrar cada uno en una fila de la tabla */}
-                    {pedidos.map((pedido) => (
-                        <tr key={pedido.id} className = "hover:bg-gray-50">
-                            <td className = "border border-gray-200 px-4 py-2">{pedido.id}</td>
-                            <td className = "border border-gray-200 px-4 py-2">{pedido.cliente}</td>
-                            <td className = "border border-gray-200 px-4 py-2">{pedido.producto}</td>
-                            <td className = "border border-gray-200 px-4 py-2">{pedido.cantidad}</td>
-                            <td className = "border border-gray-200 px-4 py-2">${Number(pedido.precio).toFixed(2)}</td>
-                            <td className = "border border-gray-200 px-4 py-2">{pedido.estado}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <PedidosTable pedidos={pedidos} />
         </div>
     );
 }
