@@ -1,6 +1,7 @@
 // Página principal para mostrar la lista de pedidos
 
 // Importamos los hooks de React y el cliente de Axios configurado para la API 
+import axios from "axios";
 import { useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
 import PedidosTable, { type Pedido } from "../components/PedidosTable";
@@ -17,8 +18,12 @@ interface PaginatedData<T> {
     data: T[];
 }
 
+interface PedidosProps {
+    onUnauthorized: () => Promise<void>;
+}
+
 // Componente principal que muestra la lista de pedidos
-export default function Pedidos() {
+export default function Pedidos({ onUnauthorized }: PedidosProps) {
     // Estado para almacenar la lista de pedidos, carga y error
     const [pedidos, setPedidos] = useState<Pedido[]>([]);
     const [loading, setLoading] = useState(true);
@@ -31,12 +36,17 @@ export default function Pedidos() {
                 setPedidos(response.data.data?.data ?? []);
                 setLoading(false);
             })
-            .catch((err) => {
+            .catch(async (err) => {
+                if (axios.isAxiosError(err) && err.response?.status === 401) {
+                    await onUnauthorized();
+                    return;
+                }
+
                 console.error("Error al cargar los pedidos:", err);
                 setError("No se pudieron cargar los pedidos. Revisa que el servidor esté activo.");
                 setLoading(false);
             });
-    }, []);
+    }, [onUnauthorized]);
 
     // Renderizado condicional para mostrar estado de carga, error o la tabla de pedidos
     if (loading) return <div className="p-6">Cargando pedidos...</div>;
