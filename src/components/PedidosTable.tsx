@@ -43,10 +43,12 @@ export default function PedidosTable({ pedidos, onDelete }: PedidosTableProps) {
             <td className="border border-gray-200 px-4 py-2">{pedido.estado}</td>
             <td className="border border-gray-200 px-4 py-2">
               <Button
-                label="Eliminar"
-                variant="secundary"
+                type="button"
                 onClick={() => onDelete(pedido.id)}
-              />
+                variant="danger"
+              >
+                Eliminar
+              </Button>
             </td>
           </tr>
         ))}

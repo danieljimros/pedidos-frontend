@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Pedidos from "./pages/Pedidos";
 import { useAuth } from "./hooks/useAuth";
+import Button from "./components/Button";
 
 // El componente `ErrorBoundary` es una clase que extiende `Component` y se utiliza para capturar errores en la aplicación. Si ocurre un error, muestra un mensaje de error en lugar de la interfaz normal.
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: string | null }> {
@@ -45,13 +46,14 @@ export default function App() {
         </div>
 
         {user && (
-          <button
+          <Button
             type="button"
-            onClick={logout}
+            onClick={() => void logout()}
+            variant="secondary"
             className="rounded bg-gray-900 px-4 py-2 text-sm font-medium text-white"
           >
             Cerrar sesión
-          </button>
+          </Button>
         )}
       </div>
 

@@ -1,6 +1,7 @@
 // pages/Login.tsx
 import { useState, type FormEventHandler } from "react";
 import type { User } from "../api/auth";
+import Button from "../components/Button";
 
 // Props para el componente de Login, incluyendo la función de login que se espera recibir
 interface LoginProps {
@@ -62,13 +63,14 @@ export default function Login({ onLogin }: LoginProps) {
           />
         </div>
 
-        <button
+        <Button 
           type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded disabled:opacity-60"
+          disabled={loading} 
+          variant="primary"
+          className="w-full py-2"
         >
           {loading ? "Entrando..." : "Entrar"}
-        </button>
+        </Button>
       </form>
     </div>
   );

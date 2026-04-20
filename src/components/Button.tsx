@@ -1,26 +1,28 @@
-// Componente de botón reutilizable con estilos y variantes
-interface ButtonProps {
-  onClick: () => void;
-  label: string;
-  variant?: "secundary" | "primary";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "danger";
+  children: ReactNode;
 }
-// Renderiza un botón con estilos basados en la variante, ejecutando la función onClick al hacer clic
+
 export default function Button({
-  onClick,
-  label,
   variant = "primary",
+  children,
+  className,
+  ...rest
 }: ButtonProps) {
   const styles = {
-    secundary: "bg-red-500 text-white hover:bg-red-700",
     primary: "bg-blue-500 text-white hover:bg-blue-700",
+    secondary: "bg-gray-700 text-white hover:bg-gray-900",
+    danger: "bg-red-500 text-white hover:bg-red-700",
   };
 
   return (
     <button
-      onClick={onClick}
-      className={`px-3 py-1 rounded ${styles[variant]}`}
+      className={`px-3 py-1 rounded ${styles[variant]} ${className ?? ""}`}
+      {...rest}
     >
-      {label}
+      {children}
     </button>
   );
 }
