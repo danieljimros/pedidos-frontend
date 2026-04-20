@@ -1,3 +1,5 @@
+import Button from "../components/Button";
+
 // components/PedidosTable.tsx
 export interface Pedido {
   id: number;
@@ -11,10 +13,11 @@ export interface Pedido {
 // Componente para mostrar una tabla de pedidos, recibe un array de pedidos como prop
 interface PedidosTableProps {
   pedidos: Pedido[];
+  onDelete: (id: number) => void;
 }
 
 // Renderiza una tabla con los datos de los pedidos, mostrando cada campo en una columna
-export default function PedidosTable({ pedidos }: PedidosTableProps) {
+export default function PedidosTable({ pedidos, onDelete }: PedidosTableProps) {
   return (
     <table className="w-full border border-gray-200">
       <thead>
@@ -25,6 +28,7 @@ export default function PedidosTable({ pedidos }: PedidosTableProps) {
           <th className="border border-gray-200 px-4 py-2">Cantidad</th>
           <th className="border border-gray-200 px-4 py-2">Precio</th>
           <th className="border border-gray-200 px-4 py-2">Estado</th>
+          <th className="border border-gray-200 px-4 py-2">Acciones</th>
         </tr>
       </thead>
 
@@ -37,6 +41,13 @@ export default function PedidosTable({ pedidos }: PedidosTableProps) {
             <td className="border border-gray-200 px-4 py-2">{pedido.cantidad}</td>
             <td className="border border-gray-200 px-4 py-2">{Number(pedido.precio).toFixed(2)} €</td>
             <td className="border border-gray-200 px-4 py-2">{pedido.estado}</td>
+            <td className="border border-gray-200 px-4 py-2">
+              <Button
+                label="Eliminar"
+                variant="secundary"
+                onClick={() => onDelete(pedido.id)}
+              />
+            </td>
           </tr>
         ))}
       </tbody>

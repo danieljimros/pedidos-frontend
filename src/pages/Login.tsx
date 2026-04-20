@@ -1,10 +1,13 @@
+// pages/Login.tsx
 import { useState, type FormEventHandler } from "react";
 import type { User } from "../api/auth";
 
+// Props para el componente de Login, incluyendo la función de login que se espera recibir
 interface LoginProps {
   onLogin: (email: string, password: string) => Promise<User>;
 }
 
+// Componente de Login que maneja el estado del formulario y la lógica de autenticación
 export default function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +19,7 @@ export default function Login({ onLogin }: LoginProps) {
     setError(null);
     setLoading(true);
 
+    // Intentamos hacer login con las credenciales proporcionadas, manejando errores y estado de carga
     try {
       await onLogin(email, password);
     } catch (err: unknown) {
@@ -26,6 +30,7 @@ export default function Login({ onLogin }: LoginProps) {
     }
   };
 
+  // Renderizamos un formulario de login con campos para email y contraseña, mostrando mensajes de error y estado de carga
   return (
     <div className="max-w-md mx-auto p-6 border border-gray-200 rounded-lg mt-10">
       <h1 className="text-2xl font-bold mb-4">Iniciar sesión</h1>
